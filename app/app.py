@@ -3,6 +3,8 @@
 from flask import Flask, request, jsonify
 from flask_migrate import Migrate
 from models import db, Hero, Power, HeroPower
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 
@@ -11,10 +13,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 
 # Disable SQLAlchemy track modifications to suppress a warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+CORS(app)
 
 migrate = Migrate(app, db)
 
 db.init_app(app)
+
+@app.route('/')
+def index():
+    return "<h1>Superheroes</h1>"
 
 @app.route('/heroes', methods=["GET"])
 def heroes():

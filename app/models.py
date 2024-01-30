@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 class Hero(db.Model):
-    __tablename__ = 'hero'
+    __tablename__ = 'heroes'  # change to plural
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -12,7 +12,7 @@ class Hero(db.Model):
     hero_power = db.relationship('HeroPower', backref='hero')
 
 class Power(db.Model):
-    __tablename__ = 'power'
+    __tablename__ = 'powers'  # change to plural
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -21,9 +21,9 @@ class Power(db.Model):
     hero_power = db.relationship('HeroPower', backref='power')
 
 class HeroPower(db.Model):
-    __tablename__ = 'hero_power'
+    __tablename__ = 'hero_powers'  # change to plural
 
     id = db.Column(db.Integer, primary_key=True)
     strength = db.Column(db.String)
-    power_id = db.Column(db.Integer, db.ForeignKey('power.id'))
-    hero_id = db.Column(db.Integer, db.ForeignKey('hero.id'))
+    power_id = db.Column(db.Integer, db.ForeignKey('powers.id'))  # change to plural
+    hero_id = db.Column(db.Integer, db.ForeignKey('heroes.id'))  # change to plural
